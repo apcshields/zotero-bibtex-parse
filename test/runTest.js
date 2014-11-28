@@ -13,9 +13,8 @@ goodFiles.forEach(function (file) {
 
     var bibTexJson = bibtexParse.toJSON(bibTexStr);
     console.log(bibTexJson);
-    assert(Object.keys(bibTexJson).length > 0);
+    assert(bibTexJson.length > 0);
 
-    assert(Object.keys(bibTexJson).length > 0);
     var bibTexJson2 = bibtexParse.toJSON(bibtexParse.toBibtex(bibTexJson));
     assert.equal(JSON.stringify(bibTexJson),JSON.stringify(bibTexJson2));
 
@@ -34,12 +33,26 @@ badFiles.forEach(function (file) {
         var bibTexJson = bibtexParse.toJSON(bibTexStr);
     } catch (err) {
         console.log('expected error ' + err);
-        bibTexJson = {};
+        bibTexJson = [];
     }
     console.log(bibTexJson);
-    assert(Object.keys(bibTexJson).length == 0);
+    assert(bibTexJson.length == 0);
     console.log();
     console.log();
 });
+
+// testing that properties set on collection for input to toBibtex are ignored
+file = 'sample.bib';
+console.log(file);
+console.log('-----------------------------------------------');
+var bibTexStr = fs.readFileSync('./test/good/' + file, 'utf8');
+var bibTexJson = bibtexParse.toJSON(bibTexStr);
+bibTexJson.randomProperty = true; // added property should be ignored
+console.log(bibTexJson);
+assert(bibTexJson.length == 1);
+var bibTexJson2 = bibtexParse.toJSON(bibtexParse.toBibtex(bibTexJson));
+assert.equal(JSON.stringify(bibTexJson),JSON.stringify(bibTexJson2));
+console.log();
+console.log();
 
 console.log('test complete');

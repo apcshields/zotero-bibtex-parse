@@ -489,26 +489,29 @@
 
 	/* added during hackathon don't hate on me */
 	exports.toBibtex = function(json) {
-		out = '';
-		for ( var i in json) {
-			out += "@" + json[i].entryType;
+		var out = '';
+		json.forEach(function(item){
+			out += "@" + item.entryType;
 			out += '{';
-			if (json[i].citationKey)
-				out += json[i].citationKey + ', ';
-			if (json[i].entry)
-				out += json[i].entry ;
-			if (json[i].entryTags) {
+			if (item.citationKey)
+				out += item.citationKey + ', ';
+			if (item.entry)
+				out += item.entry ;
+			if (item.entryTags) {
 				var tags = '';
-				for (jdx in json[i].entryTags) {
-					if (tags.length != 0)
+				for (jdx in item.entryTags) {
+					var val = item.entryTags[jdx];
+					if(val !== undefined)
+					{
+						tags += jdx + '= {' + latexToUTF8.encodeLatex(val.toString()) + '}';
 						tags += ', ';
-					tags += jdx + '= {' + latexToUTF8.encodeLatex(json[i].entryTags[jdx]) + '}';
+					}
 				}
+				tags = tags.slice(0,-2);
 				out += tags;
 			}
 			out += '}\n\n';
-		}
-		console.log(out);
+		});
 		return out;
 
 	};
