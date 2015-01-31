@@ -23,6 +23,7 @@ N.B. `value_braces` is not technically a valid expression in `string_concat`,
 but this parser accepts it.
 
     _ = require 'underscore-plus'
+    require 'unorm'
 
 It doesn't seem worth importing a utility library for these.
 
@@ -47,6 +48,10 @@ Start defining the parser:
 
     module.exports = class BibtexParser
       constructor: (@bibtex) ->
+
+Unicode-normalize the whole file.
+
+        @bibtex = @bibtex.normalize 'NFC'
 
 Additional values are added to this dictionary when the parser encounters a
 `@string` entry.

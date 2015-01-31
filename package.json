@@ -4,7 +4,8 @@
   "description": "A JavaScript library that parses (Zotero-flavor) BibTeX to JSON",
   "main": "zotero-bibtex-parse.js",
   "dependencies": {
-    "underscore-plus": "^1.6.1"
+    "underscore-plus": "^1.6.1",
+    "unorm": "^1.3.3"
   },
   "repository": {
     "type": "git",
