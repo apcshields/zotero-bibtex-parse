@@ -233,7 +233,7 @@ If this starts with an `@`, it's a malformed entry, not a comment.
           entryTags: {}
         }
 
-Split entry body by comma which are neither in quotes nor brackets:
+Split entry body by commas which are neither in quotes nor brackets:
 
         fields = @findFieldsInEntryBody body
 
@@ -245,6 +245,10 @@ Iterate over the remaining fields and parse the tags:
 
         for field in fields
           [key, value] = _.invoke(@splitKeyAndValue(field), 'trim')
+
+Normalize key capitalization (make it lower case).
+
+          key = key.toLowerCase()
 
 Ignore lines without a valid `key = value`.
 
