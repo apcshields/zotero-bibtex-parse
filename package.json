@@ -1,6 +1,6 @@
 {
   "name": "zotero-bibtex-parse",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "A JavaScript library that parses (Zotero-flavor) BibTeX to JSON",
   "main": "zotero-bibtex-parse.js",
   "dependencies": {
